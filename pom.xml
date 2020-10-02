@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lemone</groupId>
+	<artifactId>modules</artifactId>
+	<version>${lemone.version}</version>
+	<packaging>pom</packaging>
+
+	<name>modules</name>
+	<description>林溪开源：开箱即用的springboot组件</description>
+
+	<properties>
+		<!-- #################基础引用设置 ##################################### -->
+		<!-- 设置JAVA版本 -->
+		<java.version>1.8</java.version>
+		<!-- 设置项目编码格式 -->
+		<project.source.encoding>UTF-8</project.source.encoding>
+		<!-- 设置项目编译编码格式 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 设置控制台编码,防止控制输出台中文乱码 -->
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<!-- 设置打包插件版本,避免出现Unknow Error -->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<!-- 设置springcloud版本 -->
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+		<!-- 设置SpringBoot版本 -->
+		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+
+		<!-- #################外部引用设置 ###################################### -->
+		<!-- 阿里fastjson -->
+		<fastjson.version>1.2.73</fastjson.version>
+
+		<!-- #################自定义引用设置 #################################### -->
+		<lemone.version>0.0.1-SNAPSHOT</lemone.version>
+
+	</properties>
+
+	<dependencies>
+
+		<!-- springboot核心web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- 配置包，用于配置属性文件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+		</dependency>
+
+		<!-- lombok工具类 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!-- springboot单元测试 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- 生产建议不用，升级太频繁了 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<!-- maven install的时候,忽略掉单元测试 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>modules-bases</module>
+		<module>modules-boots-mpcache</module>
+	</modules>
+</project>
