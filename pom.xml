@@ -31,6 +31,19 @@
 		<!-- #################外部引用设置 ###################################### -->
 		<!-- 阿里fastjson -->
 		<fastjson.version>1.2.73</fastjson.version>
+		<!-- mybatis的版本 -->
+		<mybatis.version>3.5.4</mybatis.version>
+		<!-- mybatis与springboot整合的版本 -->
+		<mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
+		<!-- druid版本 -->
+		<druid-spring-boot-starter.version>1.1.21</druid-spring-boot-starter.version>
+		<!-- mybatisplus版本号 -->
+		<mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
+		<!-- p6spy自定义sql输出版本 -->
+		<p6spy.version>3.9.1</p6spy.version>
+		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
+		<!-- 国内开源工具类hutool -->
+		<hutool-all.version>5.4.4</hutool-all.version>
 
 		<!-- #################自定义引用设置 #################################### -->
 		<lemone.version>0.0.1-SNAPSHOT</lemone.version>
