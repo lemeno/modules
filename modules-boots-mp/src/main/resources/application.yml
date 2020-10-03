@@ -1,0 +1,15 @@
+###定义mysql启动###
+modules.mysql.enabled: true
+###定义mysql连接地址###
+modules.mysql.url: jdbc:p6spy:mysql://127.0.0.1:3306/lemone?autoReconnect=true&useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+###定义 mysql账户名###
+modules.mysql.username: root 
+###定义mysql密码###
+modules.mysql.password: JasyptUtils.encryptMsg("密码") 
+modules.mysql.jasypt.password: xv021yb30741b2yc8y21b30y4x4n2c4x
+###定义dao的路径###
+modules.mysql.package-path: com.lemone.**.business.mysql.**.dao
+###定义实体类查询对象的路径###
+modules.mysql.model-path: com.lemone.**.business.model
+###定义xml文件的路径###
+modules.mysql.mapper-path: classpath:/mappers/*Mapper.xml
