@@ -5,6 +5,15 @@
 <strong>一个开箱即用的组件库.</strong>
 </p>
 
+<p align="center">
+	<a target="_blank" href="https://license.coscl.org.cn/MulanPSL2/">
+		<img src="https://img.shields.io/:license-MulanPSL2-blue.svg" />
+	</a>
+	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
+	</a>
+</p>
+
 <br/>
 
 
