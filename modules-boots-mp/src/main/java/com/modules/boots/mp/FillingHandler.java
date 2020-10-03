@@ -8,7 +8,7 @@ package com.modules.boots.mp;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.modules.boots.mp.filling.MysqlMetaHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
  * @date：2020年10月3日
  */
 @Slf4j
-@Component(value = "mysqlFillingHandler")
-public class FillingHandler implements MetaObjectHandler {
+@Component
+public class FillingHandler implements MysqlMetaHandler {
 
     /**
      * 新增数据的时候,自动进行数据填充

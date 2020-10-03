@@ -6,7 +6,7 @@ package com.modules.boots.mp;
 
 import org.springframework.stereotype.Component;
 
-import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
+import com.modules.boots.mp.id.MysqlIdHandler;
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
@@ -16,8 +16,8 @@ import cn.hutool.core.util.IdUtil;
  * @author：林溪
  * @date：2020年10月3日
  */
-@Component(value="mysqlIdHandler")
-public class IdHandler implements IdentifierGenerator {
+@Component
+public class IdHandler implements MysqlIdHandler {
 
     /**
      * 获取自定义id

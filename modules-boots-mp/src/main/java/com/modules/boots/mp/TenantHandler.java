@@ -7,7 +7,7 @@ package com.modules.boots.mp;
 
 import org.springframework.stereotype.Component;
 
-import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
+import com.modules.boots.mp.tenant.MysqlTenantLineHandler;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
@@ -17,8 +17,8 @@ import net.sf.jsqlparser.expression.LongValue;
  * @author：林溪
  * @date：2020年10月3日
  */
-@Component(value = "mysqlTenantHandler")
-public class TenantHandler implements TenantLineHandler {
+@Component
+public class TenantHandler implements MysqlTenantLineHandler {
 
     /**
      * 获取租户的值
