@@ -57,7 +57,7 @@ public class OracleData {
     @Value("${modules.oracle.min-evictable-idle-time-millis:300000}")
     private int minEvictableIdleTimeMillis;
 
-    @Value("${modules.oracle.validation-query:select 'x'}")
+    @Value("${modules.oracle.validation-query:select 1 from dual}")
     private String validationQuery;
 
     @Value("${modules.oracle.test-while-idle:true}")

@@ -44,6 +44,7 @@
 		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
 		<!-- 国内开源工具类hutool -->
 		<hutool-all.version>5.4.4</hutool-all.version>
+		<oracle.version>10.2.0.4.0</oracle.version>
 
 		<!-- #################自定义引用设置 #################################### -->
 		<lemone.version>0.0.1-SNAPSHOT</lemone.version>

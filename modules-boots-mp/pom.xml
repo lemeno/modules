@@ -40,6 +40,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
+		<!--oracle驱动 -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>${oracle.version}</version>
+		</dependency>
+
 		<!-- mybatisplus配置 -->
 		<dependency>
 			<groupId>com.baomidou</groupId>

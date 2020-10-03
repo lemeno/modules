@@ -42,8 +42,8 @@ public class JasyptUtils {
     }
 
     public static void main(String args[]) {
-        final String devPsw = "by9xb8yrybr98b2cy498y8xrynq9";
-        System.out.println(encryptMsg(devPsw, "lemone1qaz@WSX"));
+        final String devPsw = "xv021yb30741b2yc8y21b30y4x4n2c4x";
+        System.out.println(encryptMsg(devPsw, "123456"));
     }
 
 }
