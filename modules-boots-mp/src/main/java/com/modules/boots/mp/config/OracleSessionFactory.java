@@ -32,48 +32,48 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.modules.boots.mp.data.MysqlData;
-import com.modules.boots.mp.filling.MysqlMetaHandler;
-import com.modules.boots.mp.id.MysqlIdHandler;
-import com.modules.boots.mp.tenant.MysqlTenantLineHandler;
+import com.modules.boots.mp.data.OracleData;
+import com.modules.boots.mp.filling.OracleMetaHandler;
+import com.modules.boots.mp.id.OracleIdHandler;
+import com.modules.boots.mp.tenant.OracleTenantLineHandler;
 
 /**
- * MYSQL工厂配置
+ * ORACLE工厂配置
  * @author：林溪
  * @date：2020年10月3日
  */
-@ConditionalOnProperty(prefix = "modules", name = "mysql.enabled", havingValue = "true")
-@MapperScan(basePackages = "${modules.mysql.package-path}", sqlSessionTemplateRef = "mysqlTemplate")
+@ConditionalOnProperty(prefix = "modules", name = "oracle.enabled", havingValue = "true")
+@MapperScan(basePackages = "${modules.oracle.package-path}", sqlSessionTemplateRef = "oracleTemplate")
 @EnableTransactionManagement
 @Configuration
-public class MysqlSessionFactory {
+public class OracleSessionFactory {
 
     @Autowired
-    private MysqlData mysqlData;
+    private OracleData oracleData;
 
     @Autowired
-    private MysqlIdHandler mysqlIdHandler;
+    private OracleIdHandler oracleIdHandler;
 
     @Autowired
-    private MysqlMetaHandler mysqlFillingHandler;
+    private OracleMetaHandler oracleFillingHandler;
 
     @Autowired
-    private MysqlTenantLineHandler mysqlTenantHandler;
+    private OracleTenantLineHandler oracleTenantHandler;
 
     /**
      * 添加分页插件支持
      * @author 林溪
      * @return PaginationInterceptor
      */
-    @Bean(name = "mysqlPaginationInterceptor")
+    @Bean(name = "oraclePaginationInterceptor")
     public MybatisPlusInterceptor paginationInterceptor() {
         final MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 新增多租户插件
-        if (mysqlTenantHandler != null) {
-            interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(mysqlTenantHandler));
+        if (oracleTenantHandler != null) {
+            interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(oracleTenantHandler));
         }
-        // 新增MYSQL分页拦截器
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        // 新增ORACLE分页拦截器
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.ORACLE));
         return interceptor;
     }
 
@@ -83,7 +83,7 @@ public class MysqlSessionFactory {
      * @param dbConfig
      * @return GlobalConfig
      */
-    @Bean(name = "mysqlGlobalConfig")
+    @Bean(name = "oracleGlobalConfig")
     public GlobalConfig globalConfig() {
         final GlobalConfig globalConfig = new GlobalConfig();
         // mybatisplus数据层配置
@@ -103,12 +103,12 @@ public class MysqlSessionFactory {
         // 初始化SqlRunner
         globalConfig.setEnableSqlRunner(true);
         // 设置自定义主键ID的生成方式
-        if (mysqlIdHandler != null) {
-            globalConfig.setIdentifierGenerator(mysqlIdHandler);
+        if (oracleIdHandler != null) {
+            globalConfig.setIdentifierGenerator(oracleIdHandler);
         }
         // 加载字段自动填充器
-        if (mysqlFillingHandler != null) {
-            globalConfig.setMetaObjectHandler(mysqlFillingHandler);
+        if (oracleFillingHandler != null) {
+            globalConfig.setMetaObjectHandler(oracleFillingHandler);
         }
         return globalConfig;
     }
@@ -118,7 +118,7 @@ public class MysqlSessionFactory {
      * @author 林溪
      * @return MybatisConfiguration
      */
-    @Bean(name = "mysqlMybatisConfiguration")
+    @Bean(name = "oracleMybatisConfiguration")
     public MybatisConfiguration mybatisConfiguration() {
         final MybatisConfiguration mybatisConfiguration = new MybatisConfiguration();
         // 设置为XML语言驱动
@@ -141,18 +141,18 @@ public class MysqlSessionFactory {
      * @return
      * @throws Exception MybatisSqlSessionFactoryBean
      */
-    @Bean(name = "mysqlSession")
-    public MybatisSqlSessionFactoryBean sqlSessionFactory(@Qualifier("mysqlGlobalConfig") GlobalConfig globalConfig,
-            @Qualifier("mysqlMybatisConfiguration") MybatisConfiguration mybatisConfiguration,
-            @Qualifier("mysqlPaginationInterceptor") MybatisPlusInterceptor paginationInterceptor,
-            @Qualifier("mysqlDataSource") DataSource mysqlDataSource) throws Exception {
+    @Bean(name = "oracleSession")
+    public MybatisSqlSessionFactoryBean sqlSessionFactory(@Qualifier("oracleGlobalConfig") GlobalConfig globalConfig,
+            @Qualifier("oracleMybatisConfiguration") MybatisConfiguration mybatisConfiguration,
+            @Qualifier("oraclePaginationInterceptor") MybatisPlusInterceptor paginationInterceptor,
+            @Qualifier("oracleDataSource") DataSource oracleDataSource) throws Exception {
         final MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         // 设置数据源
-        sqlSessionFactoryBean.setDataSource(mysqlDataSource);
+        sqlSessionFactoryBean.setDataSource(oracleDataSource);
         // 设置XML的映射路径
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mysqlData.getMapperPath()));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(oracleData.getMapperPath()));
         // 设置实体类扫描路径
-        sqlSessionFactoryBean.setTypeAliasesPackage(mysqlData.getModelPath());
+        sqlSessionFactoryBean.setTypeAliasesPackage(oracleData.getModelPath());
         // 设置mybatisplus全局配置
         sqlSessionFactoryBean.setGlobalConfig(globalConfig);
         // 设置mybatis的配置
@@ -165,18 +165,18 @@ public class MysqlSessionFactory {
     /**
      * 配置声明式事务管理器
      * @author 林溪
-     * @param mysqlDataSource
+     * @param oracleDataSource
      * @return PlatformTransactionManager
      */
-    @Bean(name = "mysqlManager")
-    public PlatformTransactionManager mysqlManager(@Qualifier("mysqlDataSource") DataSource mysqlDataSource) {
-        return new DataSourceTransactionManager(mysqlDataSource);
+    @Bean(name = "oracleManager")
+    public PlatformTransactionManager oracleManager(@Qualifier("oracleDataSource") DataSource oracleDataSource) {
+        return new DataSourceTransactionManager(oracleDataSource);
     }
 
-    @Bean(name = "mysqlTemplate")
-    public SqlSessionTemplate mysqlTemplate(@Qualifier("mysqlSession") SqlSessionFactory mysqlSession)
+    @Bean(name = "oracleTemplate")
+    public SqlSessionTemplate oracleTemplate(@Qualifier("oracleSession") SqlSessionFactory oracleSession)
             throws Exception {
-        return new SqlSessionTemplate(mysqlSession);
+        return new SqlSessionTemplate(oracleSession);
     }
 
 }
