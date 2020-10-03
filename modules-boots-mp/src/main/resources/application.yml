@@ -6,6 +6,7 @@ modules.mysql.url: jdbc:p6spy:mysql://127.0.0.1:3306/lemone?autoReconnect=true&u
 modules.mysql.username: root 
 ###定义mysql密码###
 modules.mysql.password: JasyptUtils.encryptMsg("密码") 
+###定义给mysql密码进行加密的盐值###
 modules.mysql.jasypt.password: xv021yb30741b2yc8y21b30y4x4n2c4x
 ###定义dao的路径###
 modules.mysql.package-path: com.lemone.**.business.mysql.**.dao

@@ -28,14 +28,14 @@ import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig;
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.modules.boots.mp.data.MysqlData;
+import com.modules.boots.mp.filling.MysqlMetaHandler;
+import com.modules.boots.mp.id.MysqlIdHandler;
+import com.modules.boots.mp.tenant.MysqlTenantLineHandler;
 
 /**
  * @projectName:  widget-db-boot-starter
@@ -52,18 +52,16 @@ import com.modules.boots.mp.data.MysqlData;
 public class MysqlSessionFactory {
 
     @Autowired
-    private DataSource dataSource;
-
     private MysqlData mysqlData;
 
     @Autowired
-    private IdentifierGenerator identifierGenerator;
+    private MysqlIdHandler mysqlIdHandler;
 
     @Autowired
-    private MetaObjectHandler metaObjectHandler;
+    private MysqlMetaHandler mysqlFillingHandler;
 
     @Autowired
-    private TenantLineHandler tenantLineHandler;
+    private MysqlTenantLineHandler mysqlTenantHandler;
 
     /**
      * 添加分页插件支持
@@ -74,8 +72,8 @@ public class MysqlSessionFactory {
     public MybatisPlusInterceptor paginationInterceptor() {
         final MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 新增多租户插件
-        if (tenantLineHandler != null) {
-            interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(tenantLineHandler));
+        if (mysqlTenantHandler != null) {
+            interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(mysqlTenantHandler));
         }
         // 新增MYSQL分页拦截器
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
@@ -108,12 +106,12 @@ public class MysqlSessionFactory {
         // 初始化SqlRunner
         globalConfig.setEnableSqlRunner(true);
         // 设置自定义主键ID的生成方式
-        if (identifierGenerator != null) {
-            globalConfig.setIdentifierGenerator(identifierGenerator);
+        if (mysqlIdHandler != null) {
+            globalConfig.setIdentifierGenerator(mysqlIdHandler);
         }
         // 加载字段自动填充器
-        if (metaObjectHandler != null) {
-            globalConfig.setMetaObjectHandler(metaObjectHandler);
+        if (mysqlFillingHandler != null) {
+            globalConfig.setMetaObjectHandler(mysqlFillingHandler);
         }
         return globalConfig;
     }
@@ -153,7 +151,7 @@ public class MysqlSessionFactory {
             @Qualifier("mysqlDataSource") DataSource mysqlDataSource) throws Exception {
         final MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         // 设置数据源
-        sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setDataSource(mysqlDataSource);
         // 设置XML的映射路径
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mysqlData.getMapperPath()));
         // 设置实体类扫描路径

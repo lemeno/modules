@@ -13,15 +13,16 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 
 /**
- * 多租户注入
+ * MYSQL多租户注入
  * @author：林溪
  * @date：2020年10月3日
  */
-@Component
-public class Tenant implements TenantLineHandler {
+@Component(value = "mysqlTenantHandler")
+public class TenantHandler implements TenantLineHandler {
 
     /**
      * 获取租户的值
+     *
      * @author 林溪
      * @return 返回租户的值
      */
