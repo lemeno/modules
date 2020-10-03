@@ -51,13 +51,13 @@ public class MysqlSessionFactory {
     @Autowired
     private MysqlData mysqlData;
 
-    @Autowired
+    @Autowired(required = false)
     private MysqlIdHandler mysqlIdHandler;
 
-    @Autowired
+    @Autowired(required = false)
     private MysqlMetaHandler mysqlFillingHandler;
 
-    @Autowired
+    @Autowired(required = false)
     private MysqlTenantLineHandler mysqlTenantHandler;
 
     /**

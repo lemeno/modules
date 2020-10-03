@@ -51,13 +51,13 @@ public class OracleSessionFactory {
     @Autowired
     private OracleData oracleData;
 
-    @Autowired
+    @Autowired(required = false)
     private OracleIdHandler oracleIdHandler;
 
-    @Autowired
+    @Autowired(required = false)
     private OracleMetaHandler oracleFillingHandler;
 
-    @Autowired
+    @Autowired(required = false)
     private OracleTenantLineHandler oracleTenantHandler;
 
     /**
