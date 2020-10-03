@@ -29,10 +29,10 @@ Modules的目标是提供一套 **开箱即用** 的方式,只需在配置文件
 
 | 模块              |     介绍                                                                         |
 | ------------------|---------------------------------------------------------------------------------|
-| [modules-bases](http://https://gitee.com/smartDis/modules/tree/master/modules-bases)     |   模块化组件中最基础的组件,在hutool的基础上进行了二次封装                            |
-| [modules-boots-mp](http://https://gitee.com/smartDis/modules/tree/master/modules-boots-mp)  |   mybatis-plus二次封装组件, 拓展多数据源，多租户，ID自动化生成器，数据自动填充        |
+| modules-bases     |   模块化组件中最基础的组件,在hutool的基础上进行了二次封装                            |
+| modules-boots-mp  |   mybatis-plus二次封装组件, 拓展多数据源，多租户，ID自动化生成器，数据自动填充        |
 
-在项目中根据需要，每个模块单独引入
+使用说明：在项目中根据需要，每个模块单独引入，详细使用参考每个项目README.md
 
 
 -------------------------------------------------------------------------------
