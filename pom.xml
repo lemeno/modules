@@ -127,5 +127,6 @@
 	<modules>
 		<module>modules-bases</module>
 		<module>modules-boots-mp</module>
+		<module>modules-boots</module>
 	</modules>
 </project>
