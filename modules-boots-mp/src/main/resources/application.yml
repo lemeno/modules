@@ -1,3 +1,4 @@
+##################MYSQL配置参考###############################
 ###定义mysql启动###
 modules.mysql.enabled: true
 ###定义mysql连接地址###
@@ -14,3 +15,21 @@ modules.mysql.package-path: com.lemone.**.business.mysql.**.dao
 modules.mysql.model-path: com.lemone.**.business.model
 ###定义xml文件的路径###
 modules.mysql.mapper-path: classpath:/mappers/*Mapper.xml
+
+##################ORACLE配置参考###############################
+###定义oracle启动###
+modules.oracle.enabled: true
+###定义oracle连接地址###
+modules.oracle.url: jdbc:p6spy:oracle:thin:@127.0.0.1:11521/lemone
+###定义 oracle账户名###
+modules.oracle.username: root 
+###定义oracle密码###
+modules.oracle.password: JasyptUtils.encryptMsg("密码") 
+###定义给oracle密码进行加密的盐值###
+modules.oracle.jasypt.password: xv021yb30741b2yc8y21b30y4x4n2c4x
+###定义dao的路径###
+modules.oracle.package-path: com.lemone.**.business.oracle.**.dao
+###定义实体类查询对象的路径###
+modules.oracle.model-path: com.lemone.**.business.model
+###定义xml文件的路径###
+modules.oracle.mapper-path: classpath:/mappers/*Mapper.xml
