@@ -75,4 +75,7 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<modules>
+		<module>modules-boots-db</module>
+	</modules>
 </project>
