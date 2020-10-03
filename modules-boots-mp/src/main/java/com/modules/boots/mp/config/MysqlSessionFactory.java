@@ -8,11 +8,17 @@ package com.modules.boots.mp.config;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -22,11 +28,14 @@ import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.MybatisXMLLanguageDriver;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.config.GlobalConfig.DbConfig;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.modules.boots.mp.CustomIdGenerator;
-import com.modules.boots.mp.FiledsFillingHandler;
+import com.modules.boots.mp.data.MysqlData;
 
 /**
  * @projectName:  widget-db-boot-starter
@@ -36,7 +45,8 @@ import com.modules.boots.mp.FiledsFillingHandler;
  * @author:       OprCalf
  * @date:         2019年1月15日
  */
-@MapperScan(basePackages = "com.bsl.**.business.bscm.**.dao", sqlSessionTemplateRef = "bscmTemplate")
+@ConditionalOnProperty(prefix = "modules", name = "mysql.enabled", havingValue = "true")
+@MapperScan(basePackages = "${modules.mysql.package-path}", sqlSessionTemplateRef = "mysqlTemplate")
 @EnableTransactionManagement
 @Configuration
 public class MysqlSessionFactory {
@@ -44,35 +54,44 @@ public class MysqlSessionFactory {
     @Autowired
     private DataSource dataSource;
 
+    private MysqlData mysqlData;
+
     @Autowired
-    private CustomIdGenerator customIdGenerator;
+    private IdentifierGenerator identifierGenerator;
 
-    // 数据库查询后获取的对象存放目录,包含单表查询对象及多表查询对象
-    private final static String typeAliasPackage = "com.boots.**.business.model";
+    @Autowired
+    private MetaObjectHandler metaObjectHandler;
 
-    // 数据库查询的xml文件配置
-    private final static String mapperPath = "classpath:/mappers/*Mapper.xml";
+    @Autowired
+    private TenantLineHandler tenantLineHandler;
 
     /**
      * 添加分页插件支持
      * @author 林溪
      * @return PaginationInterceptor
      */
-    @Bean
+    @Bean(name = "mysqlPaginationInterceptor")
     public MybatisPlusInterceptor paginationInterceptor() {
         final MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 新增多租户插件
+        if (tenantLineHandler != null) {
+            interceptor.addInnerInterceptor(new TenantLineInnerInterceptor(tenantLineHandler));
+        }
         // 新增MYSQL分页拦截器
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
 
     /**
-     * mybatisplus数据层配置
+     * mybatisplus全局配置
      * @author 林溪
-     * @return DbConfig
+     * @param dbConfig
+     * @return GlobalConfig
      */
-    @Bean
-    public DbConfig dbConfig() {
+    @Bean(name = "mysqlGlobalConfig")
+    public GlobalConfig globalConfig() {
+        final GlobalConfig globalConfig = new GlobalConfig();
+        // mybatisplus数据层配置
         final DbConfig dbConfig = new DbConfig();
         // 设置ID的生成规则
         dbConfig.setIdType(IdType.ASSIGN_ID);
@@ -84,26 +103,18 @@ public class MysqlSessionFactory {
         dbConfig.setUpdateStrategy(FieldStrategy.NOT_EMPTY);
         // 字段查询非空判断
         dbConfig.setSelectStrategy(FieldStrategy.NOT_EMPTY);
-        return dbConfig;
-    }
-
-    /**
-     * mybatisplus全局配置
-     * @author 林溪
-     * @param dbConfig
-     * @return GlobalConfig
-     */
-    @Bean
-    public GlobalConfig globalConfig(DbConfig dbConfig) {
-        final GlobalConfig globalConfig = new GlobalConfig();
         // 设置mybatisplus数据层配置
         globalConfig.setDbConfig(dbConfig);
         // 初始化SqlRunner
         globalConfig.setEnableSqlRunner(true);
         // 设置自定义主键ID的生成方式
-        globalConfig.setIdentifierGenerator(customIdGenerator);
+        if (identifierGenerator != null) {
+            globalConfig.setIdentifierGenerator(identifierGenerator);
+        }
         // 加载字段自动填充器
-        globalConfig.setMetaObjectHandler(new FiledsFillingHandler());
+        if (metaObjectHandler != null) {
+            globalConfig.setMetaObjectHandler(metaObjectHandler);
+        }
         return globalConfig;
     }
 
@@ -112,7 +123,7 @@ public class MysqlSessionFactory {
      * @author 林溪
      * @return MybatisConfiguration
      */
-    @Bean
+    @Bean(name = "mysqlMybatisConfiguration")
     public MybatisConfiguration mybatisConfiguration() {
         final MybatisConfiguration mybatisConfiguration = new MybatisConfiguration();
         // 设置为XML语言驱动
@@ -135,16 +146,18 @@ public class MysqlSessionFactory {
      * @return
      * @throws Exception MybatisSqlSessionFactoryBean
      */
-    @Bean
-    public MybatisSqlSessionFactoryBean sqlSessionFactory(GlobalConfig globalConfig,
-            MybatisConfiguration mybatisConfiguration, MybatisPlusInterceptor paginationInterceptor) throws Exception {
+    @Bean(name = "mysqlSession")
+    public MybatisSqlSessionFactoryBean sqlSessionFactory(@Qualifier("mysqlGlobalConfig") GlobalConfig globalConfig,
+            @Qualifier("mysqlMybatisConfiguration") MybatisConfiguration mybatisConfiguration,
+            @Qualifier("mysqlPaginationInterceptor") MybatisPlusInterceptor paginationInterceptor,
+            @Qualifier("mysqlDataSource") DataSource mysqlDataSource) throws Exception {
         final MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean();
         // 设置数据源
         sqlSessionFactoryBean.setDataSource(dataSource);
         // 设置XML的映射路径
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperPath));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mysqlData.getMapperPath()));
         // 设置实体类扫描路径
-        sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasPackage);
+        sqlSessionFactoryBean.setTypeAliasesPackage(mysqlData.getModelPath());
         // 设置mybatisplus全局配置
         sqlSessionFactoryBean.setGlobalConfig(globalConfig);
         // 设置mybatis的配置
@@ -153,4 +166,22 @@ public class MysqlSessionFactory {
         sqlSessionFactoryBean.setPlugins(paginationInterceptor);
         return sqlSessionFactoryBean;
     }
+
+    /**
+     * 配置声明式事务管理器
+     * @author 林溪
+     * @param mysqlDataSource
+     * @return PlatformTransactionManager
+     */
+    @Bean(name = "mysqlManager")
+    public PlatformTransactionManager mysqlManager(@Qualifier("mysqlDataSource") DataSource mysqlDataSource) {
+        return new DataSourceTransactionManager(mysqlDataSource);
+    }
+
+    @Bean(name = "mysqlTemplate")
+    public SqlSessionTemplate mysqlTemplate(@Qualifier("mysqlSession") SqlSessionFactory mysqlSession)
+            throws Exception {
+        return new SqlSessionTemplate(mysqlSession);
+    }
+
 }

@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author：林溪
  * @date：2020年10月2日
  */
+@ConditionalOnProperty(prefix = "modules", name = "mysql.enabled", havingValue = "true")
 @ServletComponentScan
 @Configuration
 @Slf4j

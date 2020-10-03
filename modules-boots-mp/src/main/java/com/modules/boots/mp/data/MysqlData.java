@@ -6,69 +6,79 @@
 package com.modules.boots.mp.data;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 
 /**
+ * mysql基础数据配置
  * @author：林溪
  * @date：2020年10月2日
  */
 @Configuration
+@ConditionalOnProperty(prefix = "modules", name = "mysql.enabled", havingValue = "true")
 @Data
 public class MysqlData {
 
-    @Value("${modules.mp.mysql.datasource.url}")
+    @Value("${modules.mysql.url}")
     private String url;
 
-    @Value("${modules.mp.mysql.datasource.username}")
+    @Value("${modules.mysql.username}")
     private String username;
 
-    @Value("${modules.mp.mysql.datasource.password}")
+    @Value("${modules.mysql.password}")
     private String password;
 
-    @Value("${modules.mp.mysql.datasource.initial-size:1}")
+    @Value("${modules.mysql.jasypt.password}")
+    private String jasyptPassword;
+
+    @Value("${modules.mysql.model-path}")
+    private String modelPath;
+
+    @Value("${modules.mysql.mapper-path}")
+    private String mapperPath;
+
+    @Value("${modules.mysql.initial-size:1}")
     private int initialSize;
 
-    @Value("${modules.mp.mysql.datasource.max-active:30}")
+    @Value("${modules.mysql.max-active:30}")
     private int maxActive;
 
-    @Value("${modules.mp.mysql.datasource.min-idle:3}")
+    @Value("${modules.mysql.min-idle:3}")
     private int minIdle;
 
-    @Value("${modules.mp.mysql.datasource.max-wait:60000}")
+    @Value("${modules.mysql.max-wait:60000}")
     private int maxWait;
 
-    @Value("${modules.mp.mysql.datasource.time-between-eviction-runs-millis:60000}")
+    @Value("${modules.mysql.time-between-eviction-runs-millis:60000}")
     private int timeBetweenEvictionRunsMillis;
 
-    @Value("${modules.mp.mysql.datasource.min-evictable-idle-time-millis:300000}")
+    @Value("${modules.mysql.min-evictable-idle-time-millis:300000}")
     private int minEvictableIdleTimeMillis;
 
-    @Value("${modules.mp.mysql.datasource.validation-query:select 'x'}")
+    @Value("${modules.mysql.validation-query:select 'x'}")
     private String validationQuery;
 
-    @Value("${modules.mp.mysql.datasource.test-while-idle:true}")
+    @Value("${modules.mysql.test-while-idle:true}")
     private boolean testWhileIdle;
 
-    @Value("${modules.mp.mysql.datasource.test-on-borrow:false}")
+    @Value("${modules.mysql.test-on-borrow:false}")
     private boolean testOnBorrow;
 
-    @Value("${modules.mp.mysql.datasource.test-on-return:false}")
+    @Value("${modules.mysql.test-on-return:false}")
     private boolean testOnReturn;
 
-    @Value("${modules.mp.mysql.datasource.pool-prepared-statements:true}")
+    @Value("${modules.mysql.pool-prepared-statements:true}")
     private boolean poolPreparedStatements;
 
-    @Value("${modules.mp.mysql.datasource.max-pool-prepared-statement-per-connection-size:20}")
+    @Value("${modules.mysql.max-pool-prepared-statement-per-connection-size:20}")
     private int maxPoolPreparedStatementPerConnectionSize;
 
-    @Value("${modules.mp.mysql.datasource.filter-class-names:stat,slf4j}")
+    @Value("${modules.mysql.filter-class-names:stat,slf4j}")
     private String filters;
 
-    @Value("${modules.mp.mysql.datasource.connection-properties:stat.mergeSql=true;stat.slowSqlMillis=5000}")
+    @Value("${modules.mysql.connection-properties:stat.mergeSql=true;stat.slowSqlMillis=5000}")
     private String connectionProperties = "";
 
-    @Value("${modules.mp.mysql.jasypt.password}")
-    private String jasyptPassword;
 }
