@@ -53,7 +53,7 @@ Modules的目标是提供一套 **开箱即用** 的方式,只需在配置文件
 
 ```xml
 <dependency>
-    <groupId>com.lemone</groupId>
+    <groupId>com.github.lemone</groupId>
     <artifactId>module-xxx</artifactId>
     <version>${lemone.version}</version>
 </dependency>
@@ -61,15 +61,15 @@ Modules的目标是提供一套 **开箱即用** 的方式,只需在配置文件
 
 ### Gradle
 ```
-compile 'com.lemone:module-xxx:${lemone.version}'
+compile 'com.github.lemone:module-xxx:${lemone.version}'
 ```
 
 ### 非Maven项目
 
 点击以下任一链接，下载`module-xxx-${lemone.version}.jar`即可：
 
-- [Maven中央库1](https://repo1.maven.org/maven2/com/lemone/module-xxx/${lemone.version}/)
-- [Maven中央库2](http://repo2.maven.org/maven2/com/lemone/module-xxx/${lemone.version}/)
+- [Maven中央库1](https://repo1.maven.org/maven2/com/github/lemone/module-xxx/${lemone.version}/)
+- [Maven中央库2](http://repo2.maven.org/maven2/com/github/lemone/module-xxx/${lemone.version}/)
 
 > 注意
 > Lemone 最低JDK版本为JDK8及以上，目前针对SpringBoot项目做主要适配对象
