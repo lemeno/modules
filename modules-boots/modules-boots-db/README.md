@@ -15,6 +15,9 @@
 </p>
 
 <br/>
+<p align="center">
+	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=0wwldaU0E8r-ZzHl_wma33W7420zwXYi&jump_from=webapi"><img src="https://img.shields.io/badge/QQ%E7%BE%A4-868327279-orange"/></a>
+</p>
 
 
 -------------------------------------------------------------------------------
