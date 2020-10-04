@@ -54,6 +54,14 @@
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 		</dependency>
+
+		<!-- 自定义基础包 -->
+		<dependency>
+			<groupId>com.lemone</groupId>
+			<artifactId>modules-bases</artifactId>
+			<version>${lemone.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
