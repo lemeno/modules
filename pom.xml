@@ -41,7 +41,6 @@
 
 	<modules>
 		<module>modules-bases</module>
-		<module>modules-boots</module>
 		<module>modules-db</module>
 		<module>modules-cache-redis</module>
 	</modules>
