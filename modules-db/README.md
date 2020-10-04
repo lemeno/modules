@@ -27,7 +27,7 @@ Modules是Lemone系列的一个组件库，面对各种组件每次都需要进�
 
 modules中的组件或者方法来自于现网开源的代码，精于选，优于选，它既是大型项目开发中解决小问题的利器，也是小型项目中的效率担当；它节省了开发人员对项目中公用类和公用工具方法的封装时间，使开发专注于业务，同时可以最大限度的避免封装不完善带来的bug。
 
-### modules-boots-db介绍
+### modules-db介绍
 
 基于Mybatis-Plus的二次封装,解决以下问题：
 
@@ -74,7 +74,7 @@ modules中的组件或者方法来自于现网开源的代码，精于选，优�
 ```xml
 <dependency>
     <groupId>com.github.lemone</groupId>
-    <artifactId>module-boots-db</artifactId>
+    <artifactId>module-db</artifactId>
     <version>${lemone.version}</version>
 </dependency>
 ```
