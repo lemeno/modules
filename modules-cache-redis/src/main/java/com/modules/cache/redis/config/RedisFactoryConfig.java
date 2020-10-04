@@ -9,7 +9,6 @@ import java.time.Duration;
 
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisPassword;
@@ -25,46 +24,45 @@ import redis.clients.jedis.JedisPoolConfig;
  * @date：2020年10月4日
  */
 @Configuration
-@ConfigurationProperties(prefix = "modules.cache.redis")
 public class RedisFactoryConfig {
 
-    @Value("${db:0}")
+    @Value("${modules.cache.redis.db:0}")
     private int db;
 
-    @Value("${host:127.0.0.1}")
+    @Value("${modules.cache.redis.host:127.0.0.1}")
     private String host;
 
-    @Value("${port:6379}")
+    @Value("${modules.cache.redis.port:6379}")
     private Integer port;
 
-    @Value("${password}")
+    @Value("${modules.cache.redis.password}")
     private String password;
 
-    @Value("${maxIdle:300}")
+    @Value("${modules.cache.redis.maxIdle:300}")
     private Integer maxIdle;
 
-    @Value("${timeout:10000}")
+    @Value("${modules.cache.redis.timeout:10000}")
     private Integer timeout;
 
-    @Value("${maxTotal:1000}")
+    @Value("${modules.cache.redis.maxTotal:1000}")
     private Integer maxTotal;
 
-    @Value("${maxWaitMillis:1000}")
+    @Value("${modules.cache.redis.maxWaitMillis:1000}")
     private Integer maxWaitMillis;
 
-    @Value("${minEvictableIdleTimeMillis:300000}")
+    @Value("${modules.cache.redis.minEvictableIdleTimeMillis:300000}")
     private Integer minEvictableIdleTimeMillis;
 
-    @Value("${numTestsPerEvictionRun:1024}")
+    @Value("${modules.cache.redis.numTestsPerEvictionRun:1024}")
     private Integer numTestsPerEvictionRun;
 
-    @Value("${timeBetweenEvictionRunsMillis:30000}")
+    @Value("${modules.cache.redis.timeBetweenEvictionRunsMillis:30000}")
     private Long timeBetweenEvictionRunsMillis;
 
-    @Value("${testOnBorrow:true}")
+    @Value("${modules.cache.redis.testOnBorrow:true}")
     private Boolean testOnBorrow;
 
-    @Value("${testWhileIdle:true}")
+    @Value("${modules.cache.redis.testWhileIdle:true}")
     private Boolean testWhileIdle;
 
     /**

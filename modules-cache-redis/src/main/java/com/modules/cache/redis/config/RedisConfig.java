@@ -78,7 +78,7 @@ public class RedisConfig {
      * @return CacheManager
      */
     @Bean
-    public CacheManager cacheManager(JedisConnectionFactory  connectionFactory) {
+    public CacheManager cacheManager(JedisConnectionFactory connectionFactory) {
         final RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         // 采用Jackson替换默认的JDKSerialization
         final Jackson2JsonRedisSerializer<?> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
@@ -95,9 +95,10 @@ public class RedisConfig {
         // 配置序列化，解决乱码问题
         final RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 // 默认过期时间,0表示永久
-                .entryTtl(Duration.ZERO)
+                .entryTtl(Duration.ofMinutes(2))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
+                .disableCachingNullValues();
         // 构建缓存管理器
         final RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)

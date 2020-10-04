@@ -15,7 +15,6 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -24,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date：2020年10月4日
  */
 @Slf4j
+@SuppressWarnings("unchecked")
 public class MybatisRedisCache implements Cache {
 
     // 读写锁
@@ -47,36 +47,53 @@ public class MybatisRedisCache implements Cache {
     }
 
     @Override
-    @SneakyThrows(Exception.class)
     public void putObject(Object key, Object value) {
+        if (redisTemplate == null) {
+            // 由于启动期间注入失败，只能运行期间注入，这段代码可以删除
+            redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
+        }
         if (value != null) {
             redisTemplate.opsForValue().set(key.toString(), value);
         }
     }
 
     @Override
-    @SneakyThrows(Exception.class)
     public Object getObject(Object key) {
-        if (key != null) {
-            return redisTemplate.opsForValue().get(key.toString());
-        } else {
-            return null;
+        if (redisTemplate == null) {
+            // 由于启动期间注入失败，只能运行期间注入，这段代码可以删除
+            redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
         }
+        try {
+            if (key != null) {
+                return redisTemplate.opsForValue().get(key.toString());
+            }
+        }
+        catch (final Exception e) {
+            e.printStackTrace();
+            log.error("缓存出错 ");
+        }
+        return null;
     }
 
     @Override
-    @SneakyThrows(Exception.class)
     public Object removeObject(Object key) {
+        if (redisTemplate == null) {
+            // 由于启动期间注入失败，只能运行期间注入，这段代码可以删除
+            redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
+        }
         if (key != null) {
             redisTemplate.delete(key.toString());
         }
         return null;
     }
 
+
     @Override
-    @SneakyThrows(Exception.class)
     public void clear() {
         log.debug("清空缓存");
+        if (redisTemplate == null) {
+            redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
+        }
         final Set<String> keys = redisTemplate.keys("*:" + id + "*");
         if (!CollectionUtils.isEmpty(keys)) {
             redisTemplate.delete(keys);
@@ -84,14 +101,16 @@ public class MybatisRedisCache implements Cache {
     }
 
     @Override
-    @SneakyThrows(Exception.class)
     public int getSize() {
+        if (redisTemplate == null) {
+            // 由于启动期间注入失败，只能运行期间注入，这段代码可以删除
+            redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
+        }
         final Long size = redisTemplate.execute((RedisCallback<Long>) RedisServerCommands::dbSize);
         return size.intValue();
     }
 
     @Override
-    @SneakyThrows(Exception.class)
     public ReadWriteLock getReadWriteLock() {
         return readWriteLock;
     }
