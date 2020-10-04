@@ -7,38 +7,120 @@
 	<parent>
 		<groupId>com.lemone</groupId>
 		<artifactId>modules</artifactId>
-		<version>${lemone.version}</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>modules-db</artifactId>
 	<name>modules-db</name>
-	<url>http://maven.apache.org</url>
+	<description>林溪SpringBoot开箱即用组件：数据库组件</description>
+
+	<properties>
+		<!-- #################基础引用设置 ##################################### -->
+		<!-- 设置SpringBoot版本 -->
+		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+
+		<!-- #################外部引用设置 ###################################### -->
+		<!-- mybatis的版本 -->
+		<mybatis.version>3.5.4</mybatis.version>
+		<!-- mybatis与springboot整合的版本 -->
+		<mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
+		<!-- druid版本 -->
+		<druid-spring-boot-starter.version>1.1.21</druid-spring-boot-starter.version>
+		<!-- mybatisplus版本号 -->
+		<mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
+		<!-- p6spy自定义sql输出版本 -->
+		<p6spy.version>3.9.1</p6spy.version>
+		<!-- 加密解密工具jasypt -->
+		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
+		<!-- 国内开源工具类hutool -->
+		<hutool-all.version>5.4.4</hutool-all.version>
+		<!-- oracle -->
+		<oracle.version>10.2.0.4.0</oracle.version>
+
+		<!-- #################自定义引用设置 #################################### -->
+		<lemone.version>1.0.0</lemone.version>
+
+	</properties>
+
+
 	<dependencies>
 
-		<!-- SpringBoot整合redis，同时排除lettuce -->
+		<!-- springboot核心web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>io.lettuce</groupId>
-					<artifactId>lettuce-core</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- jedis客户端 -->
+		<!-- 配置包，用于配置属性文件 -->
 		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
 
-		<!--mybatis整合 -->
+		<!-- lombok工具类 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!-- springboot单元测试 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--springboot与mybatis整合 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${mybatis-spring-boot-starter.version}</version>
+		</dependency>
 
+		<!--阿里druid数据量连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid-spring-boot-starter.version}</version>
+		</dependency>
+
+		<!--数据库连接驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!--oracle驱动 -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>${oracle.version}</version>
+		</dependency>
+
+		<!-- mybatisplus配置 -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus-boot-starter.version}</version>
+		</dependency>
+
+		<!-- 采用p6spy做SQL代理 -->
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>${p6spy.version}</version>
+		</dependency>
+
+		<!-- 自定义基础包 -->
+		<dependency>
+			<groupId>com.lemone</groupId>
+			<artifactId>modules-bases</artifactId>
+			<version>${lemone.version}</version>
+		</dependency>
 
 	</dependencies>
 
@@ -54,5 +136,19 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

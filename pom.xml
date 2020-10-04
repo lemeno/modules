@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lemone</groupId>
 	<artifactId>modules</artifactId>
-	<version>${lemone.version}</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>modules</name>
@@ -21,34 +23,6 @@
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 		<!-- 设置打包插件版本,避免出现Unknow Error -->
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-		<!-- 设置springcloud版本 -->
-		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		<!-- 设置SpringBoot版本 -->
-		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-
-		<!-- #################外部引用设置 ###################################### -->
-		<!-- 阿里fastjson -->
-		<fastjson.version>1.2.73</fastjson.version>
-		<!-- mybatis的版本 -->
-		<mybatis.version>3.5.4</mybatis.version>
-		<!-- mybatis与springboot整合的版本 -->
-		<mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
-		<!-- druid版本 -->
-		<druid-spring-boot-starter.version>1.1.21</druid-spring-boot-starter.version>
-		<!-- mybatisplus版本号 -->
-		<mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
-		<!-- p6spy自定义sql输出版本 -->
-		<p6spy.version>3.9.1</p6spy.version>
-		<!-- 加密解密工具jasypt -->
-		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
-		<!-- 国内开源工具类hutool -->
-		<hutool-all.version>5.4.4</hutool-all.version>
-		<!-- oracle -->
-		<oracle.version>10.2.0.4.0</oracle.version>
-
-		<!-- #################自定义引用设置 #################################### -->
-		<lemone.version>0.0.1-SNAPSHOT</lemone.version>
-
 	</properties>
 
 
@@ -68,7 +42,7 @@
 	<modules>
 		<module>modules-bases</module>
 		<module>modules-boots</module>
-    <module>modules-db</module>
-    <module>modules-cache-redis</module>
+		<module>modules-db</module>
+		<module>modules-cache-redis</module>
 	</modules>
 </project>
