@@ -11,7 +11,7 @@
 	</parent>
 	<artifactId>modules-boots-db</artifactId>
 	<name>modules-boots-db</name>
-	<url>http://maven.apache.org</url>
+	<description>林溪SpringBoot开箱即用组件：数据库组件</description>
 	<dependencies>
 
 		<!--springboot与mybatis整合 -->
