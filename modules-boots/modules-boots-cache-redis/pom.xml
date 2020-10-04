@@ -11,7 +11,7 @@
 	</parent>
 	<artifactId>modules-boots-cache-redis</artifactId>
 	<name>modules-boots-cache-redis</name>
-	<url>http://maven.apache.org</url>
+	<description>林溪SpringBoot开箱即用组件：缓存组件</description>
 	<dependencies>
 
 		<!-- SpringBoot整合redis，同时排除lettuce -->
@@ -31,7 +31,7 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-		
+
 		<!--mybatis整合 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -40,4 +40,19 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
 </project>
