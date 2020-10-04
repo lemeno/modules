@@ -60,43 +60,29 @@ modules中的组件或者方法来自于现网开源的代码，精于选，优�
 
 
 
-### Modules如何提高我们的效率
-
-Modules的目标是提供一套 **开箱即用** 的方式,只需在配置文件简单配置,即可来解决很多现有SpringBoot项目代码需要进行手动编写配置类的问题。
-
--------------------------------------------------------------------------------
-
-## 包含组件
-
-| 模块              |     介绍                                                                         |
-| ------------------|---------------------------------------------------------------------------------|
-| modules-bases     |   模块化组件中最基础的组件,纯JAVA开发,不依赖任何组件                          |
-| modules-boots-db  |   基于mybatis-plus二次封装组件, 拓展多数据源，多租户，ID自动化生成器，数据自动填充        |
-
-使用说明：在项目中根据需要，每个模块单独引入，详细使用参考每个项目README.md
-
+### 如何使用
 
 -------------------------------------------------------------------------------
 
 ## 安装
 
-### Maven
+# Maven安装
 在项目的pom.xml的dependencies中加入以下内容:
 
 ```xml
 <dependency>
     <groupId>com.github.lemone</groupId>
-    <artifactId>module-xxx</artifactId>
+    <artifactId>module-boots-db</artifactId>
     <version>${lemone.version}</version>
 </dependency>
 ```
 
-### Gradle
+# Gradle安装
 ```
 compile 'com.github.lemone:module-xxx:${lemone.version}'
 ```
 
-### 非Maven项目
+# 非Maven项目安装
 
 点击以下任一链接，下载`module-xxx-${lemone.version}.jar`即可：
 
@@ -109,9 +95,7 @@ compile 'com.github.lemone:module-xxx:${lemone.version}'
 
 -------------------------------------------------------------------------------
 
-## 添砖加瓦
 
-完善中，暂时不提供添砖加瓦，如有什么问题可随时留言...
 
 -------------------------------------------------------------------------------
 
