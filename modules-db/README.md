@@ -75,21 +75,21 @@ modules中的组件或者方法来自于现网开源的代码，精于选，优�
 <dependency>
     <groupId>com.github.lemone</groupId>
     <artifactId>module-db</artifactId>
-    <version>${lemone.version}</version>
+    <version>${module-db.version}</version>
 </dependency>
 ```
 
 ### Gradle安装
 ```
-compile 'com.github.lemone:module-xxx:${lemone.version}'
+compile 'com.github.lemone:module-db:${module-db.version}'
 ```
 
 ### 非Maven项目安装
 
-点击以下任一链接，下载`module-xxx-${lemone.version}.jar`即可：
+点击以下任一链接，下载`module-db-${module-db.version}.jar`即可：
 
-- [Maven中央库1](https://repo1.maven.org/maven2/com/github/lemone/module-xxx/${lemone.version}/)
-- [Maven中央库2](http://repo2.maven.org/maven2/com/github/lemone/module-xxx/${lemone.version}/)
+- [Maven中央库1](https://repo1.maven.org/maven2/com/github/lemone/module-db/${module-db.version}/)
+- [Maven中央库2](http://repo2.maven.org/maven2/com/github/lemone/module-db/${module-db.version}/)
 
 > 注意
 > Lemone 最低JDK版本为JDK8及以上，目前针对SpringBoot项目做主要适配对象
