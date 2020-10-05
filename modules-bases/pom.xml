@@ -19,8 +19,6 @@
 		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
 		<!-- 国内开源工具类hutool -->
 		<hutool-all.version>5.4.4</hutool-all.version>
-
-
 	</properties>
 
 	<dependencies>

@@ -3,7 +3,7 @@
  * Copyright:    Copyright(C) 2016-2030
  */
 
-package com.modules.cache.redis;
+package com.modules.cache.redis.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
