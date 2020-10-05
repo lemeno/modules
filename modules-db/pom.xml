@@ -29,15 +29,11 @@
 		<mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
 		<!-- p6spy自定义sql输出版本 -->
 		<p6spy.version>3.9.1</p6spy.version>
-		<!-- 加密解密工具jasypt -->
-		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
-		<!-- 国内开源工具类hutool -->
-		<hutool-all.version>5.4.4</hutool-all.version>
 		<!-- oracle -->
 		<oracle.version>10.2.0.4.0</oracle.version>
 
 		<!-- #################自定义引用设置 #################################### -->
-		<lemone.version>1.0.0</lemone.version>
+		<modules-bases.version>1.0.0</modules-bases.version>
 
 	</properties>
 
@@ -119,7 +115,7 @@
 		<dependency>
 			<groupId>com.lemone</groupId>
 			<artifactId>modules-bases</artifactId>
-			<version>${lemone.version}</version>
+			<version>${modules-bases.version}</version>
 		</dependency>
 
 	</dependencies>
