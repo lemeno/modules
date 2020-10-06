@@ -2,7 +2,7 @@
 <a href="https://gitee.com/lemeno/modules"><img src="https://images.gitee.com/uploads/images/2020/1006/113826_ce36e1ec_8149964.png" width="60%"></a>
 </p>
 <p align="center">
-<strong>一个开箱即用的组件库..</strong>
+<strong>一个开箱即用的组件库</strong>
 </p>
 
 <p align="center">
