@@ -28,8 +28,9 @@ public class CaffeineConfig {
         return Caffeine.newBuilder()
                 // 设置最后一次访问多长时间后过期
                 .expireAfterAccess(300, TimeUnit.SECONDS)
-                // 初始化
+                // 初始化缓存空间大小
                 .initialCapacity(500)
+                // 初始化缓存最大条数
                 .maximumSize(2000)
                 .build();
     }

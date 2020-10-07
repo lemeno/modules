@@ -17,10 +17,18 @@
 	<properties>
 		<!-- 设置SpringBoot版本 -->
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+		<!-- mybatis的版本 -->
+		<mybatis.version>3.5.4</mybatis.version>
 	</properties>
 
 
 	<dependencies>
+
+		<!-- lombok工具类 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 		<!-- SpringBoot缓存组件 -->
 		<dependency>
@@ -32,6 +40,13 @@
 		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
 			<artifactId>caffeine</artifactId>
+		</dependency>
+
+		<!--mybatis整合 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
 		</dependency>
 
 	</dependencies>
