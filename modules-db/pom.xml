@@ -4,23 +4,17 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.lemeno</groupId>
+	<packaging>jar</packaging>
+	<parent>
+		<groupId>com.github.lemeno</groupId>
+		<artifactId>modules</artifactId>
+		<version>1.0.0</version>
+	</parent>
 	<artifactId>modules-db</artifactId>
-	<version>1.0.0</version>
 	<name>modules-db</name>
 	<description>林溪SpringBoot开箱即用组件：数据库组件</description>
 
 	<properties>
-		<!-- 设置JAVA版本 -->
-		<java.version>1.8</java.version>
-		<!-- 设置项目编码格式 -->
-		<project.source.encoding>UTF-8</project.source.encoding>
-		<!-- 设置项目编译编码格式 -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- 设置控制台编码,防止控制输出台中文乱码 -->
-		<argLine>-Dfile.encoding=UTF-8</argLine>
-		<!-- 设置打包插件版本,避免出现Unknow Error -->
-		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<!-- 设置SpringBoot版本 -->
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
 		<!-- mybatis的版本 -->
@@ -36,35 +30,11 @@
 		<!-- oracle -->
 		<oracle.version>10.2.0.4.0</oracle.version>
 		<mysql.version>8.0.21</mysql.version>
-		<!-- 自定义引用设置 -->
-		<modules-bases.version>1.0.0</modules-bases.version>
 
 	</properties>
 
 
 	<dependencies>
-
-		<!-- springboot核心web -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring-boot.version}</version>
-		</dependency>
-
-		<!-- 配置包，用于配置属性文件 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-autoconfigure</artifactId>
-			<version>${spring-boot.version}</version>
-		</dependency>
-
-		<!-- springboot单元测试 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${spring-boot.version}</version>
-			<scope>test</scope>
-		</dependency>
 
 		<!--springboot与mybatis整合 -->
 		<dependency>
@@ -117,24 +87,9 @@
 		<dependency>
 			<groupId>com.github.lemeno</groupId>
 			<artifactId>modules-bases</artifactId>
-			<version>${modules-bases.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
