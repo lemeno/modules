@@ -4,39 +4,39 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.lemone</groupId>
-		<artifactId>modules</artifactId>
-		<version>1.0.0</version>
-	</parent>
+	<groupId>com.github.lemeno</groupId>
 	<artifactId>modules-cache-redis</artifactId>
+	<version>1.0.0</version>
 	<name>modules-cache-redis</name>
 	<description>Lemone开箱即用SpringBoot组件：缓存组件</description>
-	
-		<properties>
-		<!-- #################基础引用设置 ##################################### -->
+
+	<properties>
+		<!-- 设置JAVA版本 -->
+		<java.version>1.8</java.version>
+		<!-- 设置项目编码格式 -->
+		<project.source.encoding>UTF-8</project.source.encoding>
+		<!-- 设置项目编译编码格式 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 设置控制台编码,防止控制输出台中文乱码 -->
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<!-- 设置打包插件版本,避免出现Unknow Error -->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<!-- 设置SpringBoot版本 -->
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-
-		<!-- #################外部引用设置 ###################################### -->
 		<!-- mybatis的版本 -->
 		<mybatis.version>3.5.4</mybatis.version>
+		<jedis.version>3.3.0</jedis.version>
 
 	</properties>
-	
-	
-	<dependencies>
 
-		<!-- lombok工具类 -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
+
+	<dependencies>
 
 		<!-- springboot单元测试 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring-boot.version}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -50,12 +50,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-json</artifactId>
+			<version>${spring-boot.version}</version>
 		</dependency>
 
 		<!-- SpringBoot整合redis，同时排除lettuce -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<version>${spring-boot.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>io.lettuce</groupId>
@@ -68,6 +70,7 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
 		</dependency>
 
 		<!--mybatis整合 -->
@@ -79,17 +82,6 @@
 
 	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>

@@ -4,17 +4,23 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.lemone</groupId>
-		<artifactId>modules</artifactId>
-		<version>1.0.0</version>
-	</parent>
+	<groupId>com.github.lemeno</groupId>
 	<artifactId>modules-bases</artifactId>
+	<version>1.0.0</version>
 	<name>modules-bases</name>
 	<description>林溪开源：基于springboot最基础组件</description>
 
 	<properties>
-		<!-- #################外部引用设置 ###################################### -->
+		<!-- 设置JAVA版本 -->
+		<java.version>1.8</java.version>
+		<!-- 设置项目编码格式 -->
+		<project.source.encoding>UTF-8</project.source.encoding>
+		<!-- 设置项目编译编码格式 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!-- 设置控制台编码,防止控制输出台中文乱码 -->
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<!-- 设置打包插件版本,避免出现Unknow Error -->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<!-- 加密解密工具jasypt -->
 		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
 		<!-- 国内开源工具类hutool -->

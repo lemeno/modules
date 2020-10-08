@@ -19,8 +19,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.modules.bases.security.JasyptUtils;
 import com.modules.db.data.OracleData;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * oracle数据源配置
  * @author：林溪
@@ -29,7 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @ConditionalOnProperty(prefix = "modules", name = "oracle.enabled", havingValue = "true")
 @ServletComponentScan
 @Configuration
-@Slf4j
 public class OracleDataSourceConfig {
 
     @Autowired
@@ -77,10 +74,11 @@ public class OracleDataSourceConfig {
             datasource.setFilters(oracleData.getFilters());
             // 通过connectProperties属性来打开mergeSql功能；慢SQL记录
             datasource.setConnectionProperties(oracleData.getConnectionProperties());
-            log.info("ORACLE数据库初始化成功");
+            System.out.println("ORACLE数据库初始化成功");
         }
         catch (final SQLException e) {
-            log.error("ORACLE数据库初始化中出现问题", e);
+            System.out.println("ORACLE数据库初始化中出现问题");
+            e.printStackTrace();
         }
         return datasource;
     }

@@ -20,15 +20,11 @@ import org.springframework.util.CollectionUtils;
 import com.modules.cache.redis.data.RedisData;
 import com.modules.cache.redis.utils.SpringUtils;
 
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * redis缓存器
  * @author：林溪
  * @date：2020年10月4日
  */
-@Slf4j
 @SuppressWarnings("unchecked")
 public class MybatisRedisCache implements Cache {
 
@@ -70,7 +66,6 @@ public class MybatisRedisCache implements Cache {
     }
 
     @Override
-    @SneakyThrows(Exception.class)
     public Object getObject(Object key) {
         if (redisTemplate == null) {
             // MybatisRedisCache没有注入，采用手动获取restTemplate对象
@@ -102,7 +97,6 @@ public class MybatisRedisCache implements Cache {
 
     @Override
     public void clear() {
-        log.debug("清空缓存");
         if (redisTemplate == null) {
             redisTemplate = (RedisTemplate<String, Object>) SpringUtils.getBean("redisTemplate");
         }

@@ -36,11 +36,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<modules>
-		<module>modules-bases</module>
-		<module>modules-db</module>
-		<module>modules-cache-redis</module>
-    <module>modules-cache-caffeine</module>
-  </modules>
 </project>

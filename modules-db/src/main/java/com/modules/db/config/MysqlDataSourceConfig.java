@@ -20,8 +20,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.modules.bases.security.JasyptUtils;
 import com.modules.db.data.MysqlData;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * mysql数据源配置
  * @author：林溪
@@ -30,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 @ConditionalOnProperty(prefix = "modules", name = "mysql.enabled", havingValue = "true")
 @ServletComponentScan
 @Configuration
-@Slf4j
 public class MysqlDataSourceConfig {
 
     @Autowired
@@ -79,10 +76,11 @@ public class MysqlDataSourceConfig {
             datasource.setFilters(mysqlData.getFilters());
             // 通过connectProperties属性来打开mergeSql功能；慢SQL记录
             datasource.setConnectionProperties(mysqlData.getConnectionProperties());
-            log.info("MYSQL数据库初始化成功");
+            System.out.println("MYSQL数据库初始化成功");
         }
         catch (final SQLException e) {
-            log.error("MYSQL数据库初始化中出现问题", e);
+            System.out.println("MYSQL数据库初始化中出现问题");
+            e.printStackTrace();
         }
         return datasource;
     }
