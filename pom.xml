@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.lemone</groupId>
+	<groupId>com.github.lemeno</groupId>
 	<artifactId>modules</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
-
 	<name>modules</name>
 	<description>林溪开源：开箱即用的springboot组件</description>
+
+
+	<modules>
+		<module>modules-bases</module>
+		<module>modules-db</module>
+		<module>modules-cache-redis</module>
+		<module>modules-cache-caffeine</module>
+	</modules>
 
 	<properties>
 		<!-- #################基础引用设置 ##################################### -->
@@ -21,7 +30,26 @@
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 		<!-- 设置打包插件版本,避免出现Unknow Error -->
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<compile.version>8</compile.version>
+		<junit.version>4.13</junit.version>
+		<lombok.version>1.18.12</lombok.version>
 	</properties>
+
+	<dependencies>
+		<!-- 全局单元测试 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 
 	<build>
@@ -32,6 +60,15 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>${compile.version}</source>
+					<target>${compile.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>
