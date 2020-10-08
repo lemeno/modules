@@ -9,16 +9,16 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.github.benmanes.caffeine.cache.Cache;
+import com.modules.cache.caffeine.utils.SpringUtils;
 
 /**
  * mybatis本地缓存
  * @author：林溪
  * @date：2020年10月7日
  */
-@Component
+@SuppressWarnings("unchecked")
 public class MybatisCaffeineCache implements org.apache.ibatis.cache.Cache{
 
     @Autowired
@@ -43,26 +43,46 @@ public class MybatisCaffeineCache implements org.apache.ibatis.cache.Cache{
 
     @Override
     public void putObject(Object key, Object value) {
+        if (caffeineCache == null) {
+            // MybatisRedisCache没有注入，采用手动获取caffeineCache对象
+            caffeineCache = (Cache<String, Object>) SpringUtils.getBean("caffeineCache");
+        }
         caffeineCache.put(key.toString(), value);
     }
 
     @Override
     public Object getObject(Object key) {
-        return caffeineCache.getIfPresent(key);
+        if (caffeineCache == null) {
+            // MybatisRedisCache没有注入，采用手动获取caffeineCache对象
+            caffeineCache = (Cache<String, Object>) SpringUtils.getBean("caffeineCache");
+        }
+        return caffeineCache.getIfPresent(key.toString());
     }
 
     @Override
     public Object removeObject(Object key) {
-        return caffeineCache.asMap().remove(key);
+        if (caffeineCache == null) {
+            // MybatisRedisCache没有注入，采用手动获取caffeineCache对象
+            caffeineCache = (Cache<String, Object>) SpringUtils.getBean("caffeineCache");
+        }
+        return caffeineCache.asMap().remove(key.toString());
     }
 
     @Override
     public void clear() {
+        if (caffeineCache == null) {
+            // MybatisRedisCache没有注入，采用手动获取caffeineCache对象
+            caffeineCache = (Cache<String, Object>) SpringUtils.getBean("caffeineCache");
+        }
         caffeineCache.cleanUp();
     }
 
     @Override
     public int getSize() {
+        if (caffeineCache == null) {
+            // MybatisRedisCache没有注入，采用手动获取caffeineCache对象
+            caffeineCache = (Cache<String, Object>) SpringUtils.getBean("caffeineCache");
+        }
         final Long size = caffeineCache.estimatedSize();
         return size.intValue();
     }
