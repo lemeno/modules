@@ -51,6 +51,8 @@ Modules的目标是提供一套 **开箱即用** 的方式，只需在配置文�
 | p6spy自定义SQL工具                                                              |   3.9.1                            |
 | oracle包                                                                                        |   10.2.0.4.0                       |
 | mysql包                                                                                           |   8.0.21                           |
+| spring-boot-starter-cache缓存组件                       |   2.3.4.RELAESE                    |
+|caffeine                                  |   2.8.5                            |
 
 
 -------------------------------------------------------------------------------
@@ -58,10 +60,11 @@ Modules的目标是提供一套 **开箱即用** 的方式，只需在配置文�
 ## 包含组件
 
 | 模块              |     介绍                                                                         |
-| ------------------|---------------------------------------------------------------------------------|
-| modules-bases     |   模块化组件中最基础的组件，集成最纯粹的现有JAVA组件，避免重复造轮子                          |
-| modules-db        |   基于mybatis-plus二次封装组件， 拓展多数据源，多租户，ID自动化生成器，数据自动填充        |
-| modules-cache-redis  |   对redis进行二次封装，提供最基础的restTemplate外，提供mybatis缓存插件MybatisRedisCache        |
+| ----------------------|---------------------------------------------------------------------------------|
+| modules-bases         |   模块化组件中最基础的组件，集成最纯粹的现有JAVA组件，避免重复造轮子                          |
+| modules-db            |   基于mybatis-plus二次封装组件， 拓展多数据源，多租户，ID自动化生成器，数据自动填充        |
+| modules-cache-redis   |   对redis进行二次封装，提供最基础的restTemplate外，提供mybatis缓存插件MybatisRedisCache        |
+| modules-cache-caffeine   |   对caffeine进行二次封装，提供最基础的Cache<String, Object> caffeineCache外，提供mybatis缓存插件MybatisCaffeineCache        |
 
 
 使用说明：在项目中根据需要，每个模块单独引入，详细使用参考每个项目README.md
