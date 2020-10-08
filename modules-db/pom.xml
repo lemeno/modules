@@ -115,7 +115,7 @@
 
 		<!-- 自定义基础包 -->
 		<dependency>
-			<groupId>com.lemone</groupId>
+			<groupId>com.github.lemeno</groupId>
 			<artifactId>modules-bases</artifactId>
 			<version>${modules-bases.version}</version>
 		</dependency>
